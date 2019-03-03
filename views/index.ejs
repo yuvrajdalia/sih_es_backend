@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+    var i = 0;
+    var j = 0;
+  </script>
+</head>
+<body>
+<div class="search-container">
+    <div class="search">
+        <form class="search-form" action='/search-results' method='post'>
+            <input id="search" type="text" name="searchTerm" placeholder="Search..">
+            <input id="search_submit" value="Search" type="submit">
+        </form>
+    </div>
+</div>
+<ul>
+    <div class="dropdown">
+        <button class="dropbtn">Questions</button>
+        <div class="dropdown-content">
+            <% if(locals.results) { %>
+            <% var x=1; %>
+            <%  results.forEach( function( result ) { %>
+                <a class="display_i" onclick="viewFunction()" href="#" style="color:#0D47A1; font-size: 18px">
+                    Q.<%=x%>) <%= result._source.question%> ?
+                    <br>
+                    <div class="display_j" style="display: none">A.<%=x%>) <%= result._source.answer%> </div>
+                </a>
+                <% x++; %>
+            <% }) %>
+        <% } %>
+        </div>
+    </div>
+</ul>
+</body>
+<script>
+  var viewFunction = function () {
+    var i = document.getElementsByClassName('display_i');
+    var j = document.getElementsByClassName('display_j');
+    var itr;
+
+    for(itr=0; itr<j.length; itr++) {
+      console.log(itr);
+      i[itr].id = "id_ques_" + itr;
+      j[itr].id = "id_ans_" + itr;
+    }
+  }
+
+  $(".display_i").click(function() {
+    var m=this.id;
+    console.log(m);
+    var ansid='id_ans_'+m[8];
+    console.log(ansid);
+    var j=document.getElementById(ansid);
+    if(j.style.display === "block") {
+      j.style.display = "none";
+    }else {
+      j.style.display = "block";
+    }
+  });
+  /*var itr=0;
+  results.forEach( function (res){
+      console.log(`$itr`);
+      document.getElementById(`id_ques_${itr}`).onclick = function() {
+          var j = document.getElementById(`id_ans_${itr}`);
+          if(j.style.display === "block") {
+              j.style.display = "none";
+          }else {
+              x.style.display = "block";
+          }
+      }
+      itr++;
+  })*/
+</script>
+</html>
