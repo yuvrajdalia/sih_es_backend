@@ -5,7 +5,7 @@ var elasticsearch = require('elasticsearch');
 
 var client = elasticsearch.Client({
   hosts: [
-    'https://search-sih2019faq-bb7newgfkmtxmlnwtnpdc7c5vy.us-east-2.es.amazonaws.com:443'
+    'https://search-sih2019faq-bb7newgfkmtxmlnwtnpdc7c5vy.us-east-2.es.amazonaws.com:443' //add your elastic search end point here
   ]
 });
 
